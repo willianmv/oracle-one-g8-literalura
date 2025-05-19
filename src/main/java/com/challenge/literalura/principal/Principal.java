@@ -1,5 +1,6 @@
 package com.challenge.literalura.principal;
 
+import com.challenge.literalura.service.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
@@ -7,9 +8,16 @@ import java.util.Scanner;
 @Service
 public class Principal {
 
+    private final Scanner sc;
+    private final BookService bookService;
+
+    public Principal(BookService bookService) {
+        this.sc = new Scanner(System.in);
+        this.bookService = bookService;
+    }
+
     public void menu(){
 
-        Scanner sc = new Scanner(System.in);
         int op = -1;
 
         while(op != 0){
@@ -35,29 +43,20 @@ public class Principal {
             op = sc.nextInt();
             sc.nextLine();
 
-            switch (op){
-                case 0:
+            switch (op) {
+                case 0 -> {
                     System.out.println("ENCERRANDO...");
                     return;
-                case 1:
-                    searchBookByTitle();
-                    break;
-                case 2:
-                    getRegisteredBooks();
-                    break;
-                case 3:
-                    getRegisteredAuthors();
-                    break;
-                case 4:
-                    getLivingAuthorsByYear();
-                    break;
-                case 5:
-                    getRegisteredBooksByLanguage();
-                    break;
-                default:
+                }
+                case 1 -> searchBookByTitle();
+                case 2 -> getRegisteredBooks();
+                case 3 -> getRegisteredAuthors();
+                case 4 -> getLivingAuthorsByYear();
+                case 5 -> getRegisteredBooksByLanguage();
+                default -> {
                     System.out.println("=================================================");
                     System.out.println("Entre com uma opção válida");
-                    break;
+                }
             }
 
         }
