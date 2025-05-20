@@ -1,5 +1,6 @@
 package com.challenge.literalura.principal;
 
+import com.challenge.literalura.model.Book;
 import com.challenge.literalura.service.BookService;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class Principal {
             System.out.println(
                     """
                             =================================================
-                                               LITERALURA
+                                           CATÁLOGO LITERALURA
                             =================================================
                             
                             1 - Buscar livro pelo título (via Gutendex API)
@@ -64,7 +65,25 @@ public class Principal {
     }
 
     private void searchBookByTitle() {
-
+        System.out.print("--Insira o título do livro que deseja adicionar: ");
+        String title = sc.nextLine();
+        Book book = bookService.addBookToDataBase(title);
+        if (book != null) {
+            System.out.println("=================================================");
+            System.out.printf("""
+                LIVRO ENCONTRADO:
+                - Id: %d
+                - Título: %s
+                - Autor:
+                 - Nome: %s
+                 - Ano de nascimento: %d
+                 - Ano de falecimento: %d
+                - Idioma: %s
+                - Quantidade de downloads: %d
+                """, book.getAuthor().getId(), book.getTitle(),
+                    book.getAuthor().getName(), book.getAuthor().getBirthYear(), book.getAuthor().getDeathYear(),
+                    book.getLanguage(), book.getDownloads());
+        }
     }
 
     private void getRegisteredBooks() {
