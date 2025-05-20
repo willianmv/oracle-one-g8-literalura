@@ -54,4 +54,12 @@ public class Book {
     public void setDownloads(Integer downloads) {
         this.downloads = downloads;
     }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 }
