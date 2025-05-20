@@ -37,6 +37,7 @@ public class Principal {
                             4 - Listar autores vivos em determinado ano
                             5 - Listar livros de determinado idioma
                             6 - Listar Top livros mais baixados
+                            7 - Pesquisar por autores registrados
                             
                             0 - Sair
                             
@@ -59,6 +60,7 @@ public class Principal {
                 case 4 -> getLivingAuthorsByYear();
                 case 5 -> getRegisteredBooksByLanguage();
                 case 6 -> getTopBooksDownloaded();
+                case 7 -> getAuthorsByName();
                 default -> {
                     System.out.println("=================================================");
                     System.out.println("Entre com uma opção válida");
@@ -154,8 +156,8 @@ public class Principal {
         });
     }
 
-    public void getTopBooksDownloaded(){
-        System.out.print("--Insira a quantidade de livros que quer verificar: ");
+    private void getTopBooksDownloaded(){
+        System.out.print("--Insira a quantidade de livros que deseja verificar: ");
         int number = sc.nextInt();
         sc.nextLine();
         List<Book> books = bookService.getTopBooks(number);
@@ -163,6 +165,22 @@ public class Principal {
         books.forEach(book -> {
             System.out.println("Downloads: "+book.getDownloads()+" - Livro: "+book.getTitle());
         });
+    }
+
+    private void getAuthorsByName(){
+        System.out.print("--Insira o nome do autor: ");
+        String name = sc.nextLine();
+        List<Author> authors = authorService.getAuthorsByName(name);
+        if(authors.isEmpty()){
+            System.out.println("--Sem registros com o texto passado: "+name);
+        } else{
+            System.out.println("--Autores encontrados: ");
+            authors.forEach(author -> {
+                System.out.println("--Nome: "+author.getName()+
+                        " - Nasceu em: "+author.getBirthYear()+
+                        " - Morreu em: "+author.getDeathYear());
+            });
+        }
     }
 
 }

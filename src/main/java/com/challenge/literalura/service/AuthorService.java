@@ -25,4 +25,8 @@ public class AuthorService {
                 .filter(author -> author.getBirthYear() <= year && author.getDeathYear() > year)
                 .toList();
     }
+
+    public List<Author> getAuthorsByName(String name) {
+        return authorRepository.findByNameContainingIgnoreCase(name);
+    }
 }
