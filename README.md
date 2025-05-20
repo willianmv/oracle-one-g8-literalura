@@ -28,7 +28,7 @@ O **LiterAlura** é um projeto de catálogo de livros, desenvolvido como parte d
 - 🐳 **Docker** (Para ambiente de banco de dados)
 ---
 
-## Ao iniciar aplicação será exibido o seguinte menu no terminal:
+## Ao iniciar a aplicação será exibido o seguinte menu no terminal:
 
 ```
 =================================================
@@ -89,3 +89,10 @@ O código está organizado da seguinte maneira:
 - **`service/`**: Contém as classes de serviço, que implementam a lógica de negócios.
 - **`principal/`**: Contém a classe que gerencia a interação com o usuário via console.
 - **`dtos/`**: Contém os objetos de transferência de dados (DTOs) para comunicação com a API **Gutendex**.
+---
+
+## Badge de Entrega do Desafio
+
+![Badge](images/badge-literalura.png)
+
+---
