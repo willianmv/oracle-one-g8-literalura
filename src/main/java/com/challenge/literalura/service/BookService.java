@@ -64,4 +64,10 @@ public class BookService {
     public List<Book> getRegisteredBooks() {
         return bookRepository.findAll();
     }
+
+    public List<Book> getAllBooksByLanguage(String language) {
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getLanguage().equalsIgnoreCase(language))
+                .toList();
+    }
 }

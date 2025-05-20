@@ -24,9 +24,7 @@ public class Principal {
 
     public void menu(){
 
-        int op = -1;
-
-        while(op != 0){
+        while(true){
             System.out.println(
                     """
                             =================================================
@@ -46,7 +44,7 @@ public class Principal {
             );
 
             System.out.print("Digite uma opção: ");
-            op = sc.nextInt();
+            int op = sc.nextInt();
             sc.nextLine();
 
             switch (op) {
@@ -146,6 +144,12 @@ public class Principal {
     }
 
     private void getRegisteredBooksByLanguage() {
+        System.out.println("--Insira um idioma para realizar a busca: (pt, es, fr, en)");
+        String language = sc.nextLine();
+        List<Book> books = bookService.getAllBooksByLanguage(language);
+        books.forEach(book -> {
+            System.out.println("Livro: "+ book.getTitle() + " - Autor: "+ book.getAuthor().getName());
+        });
     }
 
 }
