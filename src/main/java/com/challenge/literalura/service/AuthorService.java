@@ -20,4 +20,9 @@ public class AuthorService {
         return authorRepository.findAllAuthorWithBooks();
     }
 
+    public List<Author> getLivingAuthorsAt(int year) {
+        return authorRepository.findAll().stream()
+                .filter(author -> author.getBirthYear() <= year && author.getDeathYear() > year)
+                .toList();
+    }
 }

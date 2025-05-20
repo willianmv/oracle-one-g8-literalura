@@ -134,7 +134,15 @@ public class Principal {
     }
 
     private void getLivingAuthorsByYear() {
-
+        System.out.print("--Insira o ano que deseja pesquisar: ");
+        int year = sc.nextInt();
+        sc.nextLine();
+        List<Author> authors = authorService.getLivingAuthorsAt(year);
+        authors.forEach(author -> {
+            System.out.println("Autor: "+ author.getName() +
+                    "(Nasceu em:  " + author.getBirthYear() +
+                    " - Faleceu em: "+ author.getDeathYear()+")");
+        });
     }
 
     private void getRegisteredBooksByLanguage() {
