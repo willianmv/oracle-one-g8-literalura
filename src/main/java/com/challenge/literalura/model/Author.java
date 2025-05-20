@@ -16,11 +16,9 @@ public class Author {
     private String name;
 
     @Column(nullable = false)
-
     private Integer birthYear;
 
     @Column(nullable = false)
-
     private Integer deathYear;
 
     @OneToMany(mappedBy = "author")

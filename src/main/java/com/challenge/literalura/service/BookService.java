@@ -8,6 +8,7 @@ import com.challenge.literalura.repository.AuthorRepository;
 import com.challenge.literalura.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,4 +61,7 @@ public class BookService {
     }
 
 
+    public List<Book> getRegisteredBooks() {
+        return bookRepository.findAll();
+    }
 }

@@ -1,9 +1,12 @@
 package com.challenge.literalura.principal;
 
+import com.challenge.literalura.model.Author;
 import com.challenge.literalura.model.Book;
+import com.challenge.literalura.service.AuthorService;
 import com.challenge.literalura.service.BookService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Service
@@ -11,10 +14,12 @@ public class Principal {
 
     private final Scanner sc;
     private final BookService bookService;
+    private final AuthorService authorService;
 
-    public Principal(BookService bookService) {
+    public Principal(BookService bookService, AuthorService authorService) {
         this.sc = new Scanner(System.in);
         this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     public void menu(){
@@ -80,18 +85,52 @@ public class Principal {
                  - Ano de falecimento: %d
                 - Idioma: %s
                 - Quantidade de downloads: %d
-                """, book.getAuthor().getId(), book.getTitle(),
+                """, book.getId(), book.getTitle(),
                     book.getAuthor().getName(), book.getAuthor().getBirthYear(), book.getAuthor().getDeathYear(),
                     book.getLanguage(), book.getDownloads());
         }
     }
 
     private void getRegisteredBooks() {
+        List<Book> books = bookService.getRegisteredBooks();
+        books.forEach(book -> {
+            System.out.printf("""
+                - Id: %d
+                - Título: %s
+                - Autor: %s
+                - Idioma: %s
+                - Quantidade de downloads: %d
+                ------------------------------------------------------
+                """, book.getAuthor().getId(), book.getTitle(),
+                    book.getAuthor().getName(),
+                    book.getLanguage(), book.getDownloads());
+        });
 
     }
 
     private void getRegisteredAuthors() {
+        List<Author> authors = authorService.getAllAuthorsWithBooks();
+        authors.forEach(author -> {
+            System.out.printf("""
+                    - Id: %d
+                    - Nome: %s
+                    - Ano de nascimento: %d
+                    - Ano de falecimento: %d
+                    - Livros:
+                    """, author.getId(), author.getName(),
+                    author.getBirthYear(), author.getDeathYear());
 
+            if(author.getBooks().isEmpty()){
+                System.out.println("   Nenhum livro registrado.");
+            }else{
+                for (Book book : author.getBooks()) {
+                    System.out.printf("   * %s (Idioma: %s | Downloads: %d)\n",
+                            book.getTitle(), book.getLanguage(), book.getDownloads());
+                }
+            }
+
+            System.out.println("------------------------------------------------------");
+        });
     }
 
     private void getLivingAuthorsByYear() {
