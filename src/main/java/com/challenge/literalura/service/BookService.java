@@ -8,6 +8,7 @@ import com.challenge.literalura.repository.AuthorRepository;
 import com.challenge.literalura.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +69,13 @@ public class BookService {
     public List<Book> getAllBooksByLanguage(String language) {
         return bookRepository.findAll().stream()
                 .filter(book -> book.getLanguage().equalsIgnoreCase(language))
+                .toList();
+    }
+
+    public List<Book> getTopBooks(int numberOfBooks) {
+        return bookRepository.findAll().stream()
+                .sorted(Comparator.comparingInt(Book::getDownloads).reversed())
+                .limit(numberOfBooks)
                 .toList();
     }
 }

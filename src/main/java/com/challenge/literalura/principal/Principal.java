@@ -36,6 +36,7 @@ public class Principal {
                             3 - Listar autores registrados
                             4 - Listar autores vivos em determinado ano
                             5 - Listar livros de determinado idioma
+                            6 - Listar Top livros mais baixados
                             
                             0 - Sair
                             
@@ -57,6 +58,7 @@ public class Principal {
                 case 3 -> getRegisteredAuthors();
                 case 4 -> getLivingAuthorsByYear();
                 case 5 -> getRegisteredBooksByLanguage();
+                case 6 -> getTopBooksDownloaded();
                 default -> {
                     System.out.println("=================================================");
                     System.out.println("Entre com uma opção válida");
@@ -99,7 +101,7 @@ public class Principal {
                 - Idioma: %s
                 - Quantidade de downloads: %d
                 ------------------------------------------------------
-                """, book.getAuthor().getId(), book.getTitle(),
+                """, book.getId(), book.getTitle(),
                     book.getAuthor().getName(),
                     book.getLanguage(), book.getDownloads());
         });
@@ -107,7 +109,7 @@ public class Principal {
     }
 
     private void getRegisteredAuthors() {
-        List<Author> authors = authorService.getAllAuthorsWithBooks();
+        List<Author> authors = authorService.getAllAuthors();
         authors.forEach(author -> {
             System.out.printf("""
                     - Id: %d
@@ -149,6 +151,17 @@ public class Principal {
         List<Book> books = bookService.getAllBooksByLanguage(language);
         books.forEach(book -> {
             System.out.println("Livro: "+ book.getTitle() + " - Autor: "+ book.getAuthor().getName());
+        });
+    }
+
+    public void getTopBooksDownloaded(){
+        System.out.print("--Insira a quantidade de livros que quer verificar: ");
+        int number = sc.nextInt();
+        sc.nextLine();
+        List<Book> books = bookService.getTopBooks(number);
+        System.out.println("--Classificação de livros por downloads - TOP: "+number);
+        books.forEach(book -> {
+            System.out.println("Downloads: "+book.getDownloads()+" - Livro: "+book.getTitle());
         });
     }
 

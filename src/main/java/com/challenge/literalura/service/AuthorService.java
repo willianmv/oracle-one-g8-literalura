@@ -16,7 +16,7 @@ public class AuthorService {
     }
 
 
-    public List<Author> getAllAuthorsWithBooks() {
+    public List<Author> getAllAuthors() {
         return authorRepository.findAllAuthorWithBooks();
     }
 
